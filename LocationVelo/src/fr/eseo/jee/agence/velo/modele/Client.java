@@ -1,4 +1,4 @@
-package fr.eseo.jee.agence.velo;
+package fr.eseo.jee.agence.velo.modele;
 
 public class Client {
 
