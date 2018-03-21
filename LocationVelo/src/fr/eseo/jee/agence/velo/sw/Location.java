@@ -6,14 +6,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebService;
 
 import fr.eseo.jee.agence.velo.bd.UtiliserBD;
 import fr.eseo.jee.agence.velo.modele.ReservationVelo;
 import fr.eseo.jee.agence.velo.modele.Velo;
 
-public class Location {
+@WebService(targetNamespace = "http://sw.velo.agence.jee.eseo.fr/", endpointInterface = "fr.eseo.jee.agence.velo.sw.LocationSEI", portName = "LocationPort", serviceName = "LocationService")
+public class Location implements LocationSEI {
 	
-	public static List<Velo> trouverVelo (Velo velo) {
+	public List<Velo> trouverVelo (Velo velo) {
 		UtiliserBD utiliserBD = new UtiliserBD();
 		Statement stmt = utiliserBD.connexion();
 		try {

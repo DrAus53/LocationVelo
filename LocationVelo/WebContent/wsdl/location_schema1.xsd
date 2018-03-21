@@ -1,0 +1,68 @@
+<xs:schema xmlns="http://sw.velo.agence.jee.eseo.fr/" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://sw.velo.agence.jee.eseo.fr/">
+  <xs:complexType name="reservationVelo">
+    <xs:sequence>
+      <xs:element name="codeClient" type="xs:int"/>
+      <xs:element name="codeReservation" type="xs:int"/>
+      <xs:element name="codeVelo" type="xs:int"/>
+      <xs:element minOccurs="0" name="dateDebut" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="dateFin" type="xs:dateTime"/>
+      <xs:element name="paiementEffectue" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="velo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="categorie" type="xs:string"/>
+      <xs:element name="codeVelo" type="xs:int"/>
+      <xs:element name="prixLocation" type="xs:double"/>
+      <xs:element minOccurs="0" name="ville" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="annulerVelo" type="annulerVelo"/>
+  <xs:complexType name="annulerVelo">
+    <xs:sequence>
+      <xs:element form="qualified" name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="annulerVeloResponse" type="annulerVeloResponse"/>
+  <xs:complexType name="annulerVeloResponse">
+    <xs:sequence>
+      <xs:element form="qualified" name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="reservationVelo" type="reservationVelo"/>
+  <xs:complexType name="reservationVelo">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="arg0" type="reservationVelo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="reservationVeloResponse" type="reservationVeloResponse"/>
+  <xs:complexType name="reservationVeloResponse">
+    <xs:sequence>
+      <xs:element form="qualified" name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="trouverVelo" type="trouverVelo"/>
+  <xs:complexType name="trouverVelo">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="arg0" type="velo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="trouverVeloResponse" type="trouverVeloResponse"/>
+  <xs:complexType name="trouverVeloResponse">
+    <xs:sequence>
+      <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="return" type="velo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="payerVelo" type="payerVelo"/>
+  <xs:complexType name="payerVelo">
+    <xs:sequence>
+      <xs:element form="qualified" name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="payerVeloResponse" type="payerVeloResponse"/>
+  <xs:complexType name="payerVeloResponse">
+    <xs:sequence>
+      <xs:element form="qualified" minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
