@@ -6,21 +6,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebService;
 
 import fr.eseo.jee.agence.velo.bd.UtiliserBD;
 import fr.eseo.jee.agence.velo.modele.ReservationVelo;
 import fr.eseo.jee.agence.velo.modele.Velo;
 
-public class Location {
+@WebService(targetNamespace = "http://sw.velo.agence.jee.eseo.fr/", endpointInterface = "fr.eseo.jee.agence.velo.sw.LocationSEI", portName = "LocationPort", serviceName = "LocationService")
+public class Location implements LocationSEI {
 	
-	public static List<Velo> trouverVelo (Velo velo) {
+	public List<Velo> trouverVelo (Velo velo) {
 		UtiliserBD utiliserBD = new UtiliserBD();
 		Statement stmt = utiliserBD.connexion();
 		try {
-			stmt.executeQuery("SELECT DISTINCT v.idvelo, v.categorie, v.ville, v.prixLocationDebase FROM Velo v, "
-					+ "Reservation r WHERE ((NOW() NOT BETWEEN r.dateLocationDebut AND r.dateLocationFin AND"
-					+ " v.idVelo = r.idVelo ) OR v.idVelo NOT IN (SELECT idVelo FROM Reservation)) AND "
-					+ "v.categorie Like('" + velo.getCategorie() + "') AND v.ville LIKE ('" + velo.getVille() + "')");
+			stmt.executeQuery("SELECT * FROM Velo WHERE categorie Like('" + velo.getCategorie() + "') AND ville LIKE ('" + velo.getVille() + "')");
 
 		ResultSet rset = stmt.getResultSet();
 		

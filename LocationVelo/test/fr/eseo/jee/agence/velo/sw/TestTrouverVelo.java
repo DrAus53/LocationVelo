@@ -9,8 +9,9 @@ import fr.eseo.jee.agence.velo.modele.Velo;
 public class TestTrouverVelo {
 
 	public static void main(String[] args) throws SQLException {
+		Location location = new Location();
 		Velo velo = new Velo("VTT", "nantes");
-		List<Velo> velos = Location.trouverVelo(velo);
+		List<Velo> velos = location.trouverVelo(velo);
 		for (int i=0; i<velos.size(); i++) {
 			System.out.println(velos.get(i).toString());
 		}
