@@ -18,12 +18,13 @@ public class Location implements LocationSEI {
 	public List<Velo> trouverVelo (Velo velo) {
 		UtiliserBD utiliserBD = new UtiliserBD();
 		Statement stmt = utiliserBD.connexion();
+		List<Velo> velos = new ArrayList();
+
 		try {
 			stmt.executeQuery("SELECT * FROM Velo WHERE categorie Like('" + velo.getCategorie() + "') AND ville LIKE ('" + velo.getVille() + "')");
 
 		ResultSet rset = stmt.getResultSet();
 		
-		List<Velo> velos = new ArrayList();
 		
 		while (rset.next()) {
 			Velo v = new Velo(Integer.parseInt(rset.getString("idVelo")), rset.getString("categorie"), rset.getString("ville"), Double.parseDouble(rset.getString("prixLocationDeBase")));
@@ -31,12 +32,12 @@ public class Location implements LocationSEI {
 		}
 		rset.close();
 		utiliserBD.deconnexion();
-		return velos;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
+		return velos;
+
 	}
 	
 	public int reservationVelo (ReservationVelo reservationVelo) {
@@ -45,13 +46,31 @@ public class Location implements LocationSEI {
 	}
 	
 	public String payerVelo (int codeReservation) {
-		
-		return "";
+		UtiliserBD utiliserBD = new UtiliserBD();
+		Statement stmt = utiliserBD.connexion();
+		String result = "";
+		try {
+			stmt.executeUpdate("UPDATE Reservation SET booleenPaiementEffectue=1 WHERE idReservation=" + codeReservation);
+			result = "OK";
+			utiliserBD.deconnexion();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	public boolean annulerVelo (int codeReservation) {
-		
-		return true ;
+		UtiliserBD utiliserBD = new UtiliserBD();
+		Statement stmt = utiliserBD.connexion();
+		boolean result = false;
+		try {
+			stmt.executeUpdate("DELETE FROM Reservation WHERE idReservation=" + codeReservation);
+			result = true;
+			utiliserBD.deconnexion();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 }
