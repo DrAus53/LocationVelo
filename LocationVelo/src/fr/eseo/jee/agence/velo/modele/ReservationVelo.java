@@ -1,6 +1,6 @@
 package fr.eseo.jee.agence.velo.modele;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class ReservationVelo {
 

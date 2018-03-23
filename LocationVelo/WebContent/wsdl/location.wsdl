@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="Location" targetNamespace="http://sw.velo.agence.jee.eseo.fr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://sw.velo.agence.jee.eseo.fr/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<wsdl:definitions name="LocationService" targetNamespace="http://sw.velo.agence.jee.eseo.fr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://sw.velo.agence.jee.eseo.fr/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <wsdl:types>
     <schema xmlns="http://www.w3.org/2001/XMLSchema">
   <import namespace="http://sw.velo.agence.jee.eseo.fr/" schemaLocation="location_schema1.xsd"/>
 </schema>
   </wsdl:types>
-  <wsdl:message name="reservationVeloResponse">
-    <wsdl:part name="parameters" element="tns:reservationVeloResponse">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="payerVeloResponse">
     <wsdl:part name="parameters" element="tns:payerVeloResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="annulerVeloResponse">
     <wsdl:part name="parameters" element="tns:annulerVeloResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reserverVelo">
+    <wsdl:part name="parameters" element="tns:reserverVelo">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="trouverVeloResponse">
@@ -29,25 +29,25 @@
     <wsdl:part name="parameters" element="tns:annulerVelo">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="reservationVelo">
-    <wsdl:part name="parameters" element="tns:reservationVelo">
+  <wsdl:message name="reserverVeloResponse">
+    <wsdl:part name="parameters" element="tns:reserverVeloResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="trouverVelo">
     <wsdl:part name="parameters" element="tns:trouverVelo">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:portType name="LocationPortType">
+  <wsdl:portType name="LocationSEI">
     <wsdl:operation name="annulerVelo">
       <wsdl:input name="annulerVelo" message="tns:annulerVelo">
     </wsdl:input>
       <wsdl:output name="annulerVeloResponse" message="tns:annulerVeloResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="reservationVelo">
-      <wsdl:input name="reservationVelo" message="tns:reservationVelo">
+    <wsdl:operation name="reserverVelo">
+      <wsdl:input name="reserverVelo" message="tns:reserverVelo">
     </wsdl:input>
-      <wsdl:output name="reservationVeloResponse" message="tns:reservationVeloResponse">
+      <wsdl:output name="reserverVeloResponse" message="tns:reserverVeloResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="trouverVelo">
@@ -63,7 +63,7 @@
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="LocationSoapBinding" type="tns:LocationPortType">
+  <wsdl:binding name="LocationServiceSoapBinding" type="tns:LocationSEI">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="annulerVelo">
       <soap:operation soapAction="" style="document"/>
@@ -74,12 +74,12 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="reservationVelo">
+    <wsdl:operation name="reserverVelo">
       <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="reservationVelo">
+      <wsdl:input name="reserverVelo">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="reservationVeloResponse">
+      <wsdl:output name="reserverVeloResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
@@ -102,9 +102,9 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name="Location">
-    <wsdl:port name="LocationPort" binding="tns:LocationSoapBinding">
-      <soap:address location="http://localhost:8080/GestionCompagnieVelo/services"/>
+  <wsdl:service name="LocationService">
+    <wsdl:port name="LocationPort" binding="tns:LocationServiceSoapBinding">
+      <soap:address location="http://localhost:8080/GestionCompagnieVelo/services/LocationPort"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

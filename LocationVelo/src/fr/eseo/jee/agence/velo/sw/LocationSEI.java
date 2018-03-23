@@ -12,7 +12,7 @@ public interface LocationSEI {
 
 	List<Velo> trouverVelo(Velo velo);
 
-	int reservationVelo(ReservationVelo reservationVelo);
+	int reserverVelo(ReservationVelo reservationVelo);
 
 	String payerVelo(int codeReservation);
 
