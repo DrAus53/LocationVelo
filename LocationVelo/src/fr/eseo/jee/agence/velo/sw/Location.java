@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.jws.WebService;
@@ -46,55 +45,48 @@ public class Location implements LocationSEI {
 		Statement stmt = utiliserBD.connexion();
 		Statement stmt2 = utiliserBD.connexion();
 		Statement stmt3 = utiliserBD.connexion();
-
-		int result = 0;
+		
+		
+		int result = -1;
 		
 		try {			
 			stmt.executeQuery("SELECT * FROM Reservation WHERE idVelo='" 
-			+ reservationVelo.getCodeVelo() + "'  AND (( '" + reservationVelo.getDateDebut() + "' "
-					+ "BETWEEN dateLocationDebut AND dateLocationFin) OR ( '" + reservationVelo.getDateFin() + "'"
-							+ "BETWEEN dateLocationDebut AND dateLocationFin));"); 	
+			+ reservationVelo.getCodeVelo() + "'  AND (( '" + reservationVelo.getDateDebutFormat() + "' "
+					+ "BETWEEN dateLocationDebut AND dateLocationFin) OR ( '" + reservationVelo.getDateFinFormat() + "'"
+							+ "BETWEEN dateLocationDebut AND dateLocationFin));"); 
+			
+			System.out.println("SELECT * FROM Reservation WHERE idVelo='" 
+			+ reservationVelo.getCodeVelo() + "'  AND (( '" + reservationVelo.getDateDebutFormat() + "' "
+					+ "BETWEEN dateLocationDebut AND dateLocationFin) OR ( '" + reservationVelo.getDateFinFormat() + "'"
+							+ "BETWEEN dateLocationDebut AND dateLocationFin));");
+			
 			
 			
 			ResultSet rset = stmt.getResultSet();
 			
 			if(rset.next()== false) {
-				System.out.println("INSERT INTO `Reservation` (`idReservation`, "
-						+ "`idVelo`, `idClient`, `dateLocationDebut`, "
-						+ "`dateLocationFin`, `booleenPaiementEffectue`) "
-						+ "VALUES (NULL, '" + reservationVelo.getCodeVelo() +"', "
-								+ "'" + reservationVelo.getCodeClient() + "'', "
-										+ "'" + reservationVelo.getDateDebut() + "'', "
-												+"'" + reservationVelo.getDateFin()+ "'', '0')");
 				
 				stmt2.execute("INSERT INTO `Reservation` ("
 						+ "`idVelo`, `idClient`, `dateLocationDebut`, "
 						+ "`dateLocationFin`, `booleenPaiementEffectue`) "
 						+ "VALUES ( '" + reservationVelo.getCodeVelo() +"', "
 								+ "'" + reservationVelo.getCodeClient() + "', "
-										+ "'" + reservationVelo.getDateDebut() + "', "
-												+"'" + reservationVelo.getDateFin()+ "', '0')");
+										+ "'" + reservationVelo.getDateDebutFormat() + "', "
+												+"'" + reservationVelo.getDateFinFormat()+ "', '0')");
 				
-				
-				System.out.println("SELECT idReservation FROM Reservation WHERE "
+				stmt3.executeQuery("SELECT idReservation FROM Reservation WHERE "
 						+ "idVelo=" + reservationVelo.getCodeVelo() 
 						+" AND idClient=" + reservationVelo.getCodeClient()
-						+" AND dateLocationDebut='" + reservationVelo.getDateDebut()
-						+"' AND dateLocationFin='" + reservationVelo.getDateFin()+"'");
+						+" AND dateLocationDebut='" + reservationVelo.getDateDebutFormat()
+						+"' AND dateLocationFin='" + reservationVelo.getDateFinFormat()+"'");
 				
-				stmt3.execute("SELECT idReservation FROM Reservation WHERE "
-						+ "idVelo=" + reservationVelo.getCodeVelo() 
-						+" AND idClient=" + reservationVelo.getCodeClient()
-						+" AND dateLocationDebut='" + reservationVelo.getDateDebut()
-						+"' AND dateLocationFin='" + reservationVelo.getDateFin()+"'");
+				ResultSet rset1 = stmt3.getResultSet();	
+				if(rset1.next()== true) {
+					result = rset1.getInt("idReservation");
+				}
 				
-				
-				ResultSet rset1 = stmt3.getResultSet();
-				
-
-				result = rset1.getInt("idReservation");
 			}else {
-				result = -1;
+				result = 0;
 			}
 				rset.close();
 				utiliserBD.deconnexion();		
