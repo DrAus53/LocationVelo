@@ -1,19 +1,16 @@
 package fr.eseo.jee.agence.velo.modele;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 public class ReservationVelo {
 
-	int codeReservation ;
-	int codeVelo ;
-	int codeClient ;
-	Date dateDebut ;
-	Date dateFin ;
-	boolean paiementEffectue ;
-	
-	SimpleDateFormat formater = new SimpleDateFormat("YYYY-MM-dd");
-	
+	private int codeReservation ;
+	private int codeVelo ;
+	private int codeClient ;
+	private String dateDebut ;
+	private String dateFin ;
+	private boolean paiementEffectue ;
+		
 	public int getCodeReservation() {
 		return codeReservation;
 	}
@@ -32,23 +29,17 @@ public class ReservationVelo {
 	public void setCodeClient(int codeClient) {
 		this.codeClient = codeClient;
 	}
-	public Date getDateDebut() {
+	public String getDateDebut() {
 		return dateDebut;
 	}
-	public String getDateDebutFormat() {
-		return formater.format(dateDebut);
+	public void setDateDebut(String dateDebut) {
+		this.dateDebut=dateDebut;
 	}
-	public void setDateDebut(Date localDate) {
-		this.dateDebut = localDate;
-	}
-	public Date getDateFin() {
+	public String getDateFin() {
 		return dateFin;
 	}
-	public String getDateFinFormat() {
-		return formater.format(dateFin);
-	}
-	public void setDateFin(Date dateFin) {
-		this.dateFin = dateFin;
+	public void setDateFin(String dateFin) {
+		this.dateFin=dateFin;
 	}
 	public boolean isPaiementEffectue() {
 		return paiementEffectue;

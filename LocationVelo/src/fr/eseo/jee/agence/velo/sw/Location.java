@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.jws.WebService;
 
@@ -15,10 +14,10 @@ import fr.eseo.jee.agence.velo.modele.Velo;
 @WebService(targetNamespace = "http://sw.velo.agence.jee.eseo.fr/", endpointInterface = "fr.eseo.jee.agence.velo.sw.LocationSEI", portName = "LocationPort", serviceName = "LocationService")
 public class Location implements LocationSEI {
 	
-	public List<Velo> trouverVelo (Velo velo) {
+	public ArrayList<Velo> trouverVelo (Velo velo) {
 		UtiliserBD utiliserBD = new UtiliserBD();
 		Statement stmt = utiliserBD.connexion();
-		List<Velo> velos = new ArrayList<Velo>();
+		ArrayList<Velo> velos = new ArrayList<Velo>();
 
 		try {
 			stmt.executeQuery("SELECT * FROM Velo WHERE categorie Like('" + velo.getCategorie() + "') AND ville LIKE ('" + velo.getVille() + "')");
@@ -51,13 +50,13 @@ public class Location implements LocationSEI {
 		
 		try {			
 			stmt.executeQuery("SELECT * FROM Reservation WHERE idVelo='" 
-			+ reservationVelo.getCodeVelo() + "'  AND (( '" + reservationVelo.getDateDebutFormat() + "' "
-					+ "BETWEEN dateLocationDebut AND dateLocationFin) OR ( '" + reservationVelo.getDateFinFormat() + "'"
+			+ reservationVelo.getCodeVelo() + "'  AND (( '" + reservationVelo.getDateDebut() + "' "
+					+ "BETWEEN dateLocationDebut AND dateLocationFin) OR ( '" + reservationVelo.getDateFin() + "'"
 							+ "BETWEEN dateLocationDebut AND dateLocationFin));"); 
 			
 			System.out.println("SELECT * FROM Reservation WHERE idVelo='" 
-			+ reservationVelo.getCodeVelo() + "'  AND (( '" + reservationVelo.getDateDebutFormat() + "' "
-					+ "BETWEEN dateLocationDebut AND dateLocationFin) OR ( '" + reservationVelo.getDateFinFormat() + "'"
+			+ reservationVelo.getCodeVelo() + "'  AND (( '" + reservationVelo.getDateDebut() + "' "
+					+ "BETWEEN dateLocationDebut AND dateLocationFin) OR ( '" + reservationVelo.getDateFin() + "'"
 							+ "BETWEEN dateLocationDebut AND dateLocationFin));");
 			
 			
@@ -71,14 +70,14 @@ public class Location implements LocationSEI {
 						+ "`dateLocationFin`, `booleenPaiementEffectue`) "
 						+ "VALUES ( '" + reservationVelo.getCodeVelo() +"', "
 								+ "'" + reservationVelo.getCodeClient() + "', "
-										+ "'" + reservationVelo.getDateDebutFormat() + "', "
-												+"'" + reservationVelo.getDateFinFormat()+ "', '0')");
+										+ "'" + reservationVelo.getDateDebut() + "', "
+												+"'" + reservationVelo.getDateFin()+ "', '0')");
 				
 				stmt3.executeQuery("SELECT idReservation FROM Reservation WHERE "
 						+ "idVelo=" + reservationVelo.getCodeVelo() 
 						+" AND idClient=" + reservationVelo.getCodeClient()
-						+" AND dateLocationDebut='" + reservationVelo.getDateDebutFormat()
-						+"' AND dateLocationFin='" + reservationVelo.getDateFinFormat()+"'");
+						+" AND dateLocationDebut='" + reservationVelo.getDateDebut()
+						+"' AND dateLocationFin='" + reservationVelo.getDateFin()+"'");
 				
 				ResultSet rset1 = stmt3.getResultSet();	
 				if(rset1.next()== true) {

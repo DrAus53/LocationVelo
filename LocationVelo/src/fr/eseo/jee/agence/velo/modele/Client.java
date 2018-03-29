@@ -2,12 +2,12 @@ package fr.eseo.jee.agence.velo.modele;
 
 public class Client {
 
-	int codeClient ;
-	String nom ;
-	String prenom ;
-	String adresse ;
-	String telephone ;
-	String email ;
+	private int codeClient ;
+	private String nom ;
+	private String prenom ;
+	private String adresse ;
+	private String telephone ;
+	private String email ;
 	
 	public int getCodeClient() {
 		return codeClient;

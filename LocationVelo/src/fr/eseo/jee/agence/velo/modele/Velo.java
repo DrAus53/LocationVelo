@@ -2,11 +2,17 @@ package fr.eseo.jee.agence.velo.modele;
 
 public class Velo {
 
-	int codeVelo ;
-	String categorie ;
-	String ville ;
-	double prixLocation ;
+	private int codeVelo ;
+	private String categorie ;
+	private String ville ;
+	private double prixLocation ;
 	
+	public Velo() {
+		this.categorie = "";
+		this.ville = "";
+		this.codeVelo = 0;
+		this.prixLocation = 0;
+	}
 	
 	public Velo(String categorie, String ville) {
 		this.categorie = categorie;

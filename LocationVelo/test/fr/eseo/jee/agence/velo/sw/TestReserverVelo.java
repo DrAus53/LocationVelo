@@ -11,9 +11,8 @@ public class TestReserverVelo {
 		Location location = new Location();
 		ReservationVelo reservationVelo = new ReservationVelo();
 		reservationVelo.setCodeVelo(1); 
-		Date dateDebut = new Date(118,3,29);
-		System.out.println(dateDebut);
-		Date dateFin = new Date(118,0,29);
+		String dateDebut = "2018-05-29";
+		String dateFin = "2018-06-30";
 		System.out.println(dateFin);
 		reservationVelo.setDateDebut(dateDebut);
 		reservationVelo.setDateFin(dateFin);
